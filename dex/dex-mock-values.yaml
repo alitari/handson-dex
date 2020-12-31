@@ -1,0 +1,30 @@
+ingress:
+  enabled: true
+  hosts:
+    - dex.11.22.33.44.xip.io
+  annotations:
+    kubernetes.io/ingress.class: kong
+
+postgresql:
+  enabled: true
+
+config:
+  issuer: http://dex.11.22.33.44.xip.io/dex
+
+  web:
+    http: 0.0.0.0:5556
+
+  telemetry:
+    http: 0.0.0.0:5558
+
+  staticClients:
+  - id: dex-clientapp
+    redirectURIs:
+    - 'http://dex-clientapp.11.22.33.44.xip.io/callback'
+    name: 'dex Clientapp'
+    secret: example-secret
+
+  connectors:
+  - type: mockCallback
+    id: mock
+    name: Example

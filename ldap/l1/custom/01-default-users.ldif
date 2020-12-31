@@ -1,0 +1,61 @@
+# LDAP
+# cn = common name (attribute)
+# dc = domain component: DC objects represent the top of an LDAP tree that uses DNS to define its namespace
+# ou = organizational unit: containers that hold other objects
+# dn = distinguished names: A name that includes an object's entire path to the root of the LDAP namespace
+
+# initialization values
+
+# example.org
+# dn: dc=example,dc=org
+# objectClass: top
+# objectClass: dcObject
+# objectClass: organization
+# o: Example Inc.
+# dc: example
+
+# # admin, example.org
+# dn: cn=admin,dc=example,dc=org
+# objectClass: simpleSecurityObject
+# objectClass: organizationalRole
+# cn: admin
+# description: LDAP administrator
+# userPassword:: e1NTSEF9YXJLUDZoeFZ1MG5kVlZTVVZGRGlhTFUzOGJsL0hYNEs=
+
+# people
+dn: ou=People,dc=example,dc=org
+objectClass: organizationalUnit
+ou: People
+
+dn: cn=jane,ou=People,dc=example,dc=org
+objectClass: person
+objectClass: inetOrgPerson
+sn: doe
+cn: jane
+mail: janedoe@example.com
+userpassword: foo
+
+dn: cn=john,ou=People,dc=example,dc=org
+objectClass: person
+objectClass: inetOrgPerson
+sn: doe
+cn: john
+mail: johndoe@example.com
+userpassword: bar
+
+# Group definitions.
+
+dn: ou=Groups,dc=example,dc=org
+objectClass: organizationalUnit
+ou: Groups
+
+dn: cn=admins,ou=Groups,dc=example,dc=org
+objectClass: groupOfNames
+cn: admins
+member: cn=john,ou=People,dc=example,dc=org
+
+dn: cn=developers,ou=Groups,dc=example,dc=org
+objectClass: groupOfNames
+cn: developers
+member: cn=jane,ou=People,dc=example,dc=org
+member: cn=john,ou=People,dc=example,dc=org

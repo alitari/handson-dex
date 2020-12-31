@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dex-clientapp
+  labels:
+    app.kubernetes.io/name: dex-clientapp
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: dex-clientapp
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: dex-clientapp
+    spec:
+      containers:
+        - name: dex-clientapp
+          image: alitari/dex-clientapp:latest
+
+          imagePullPolicy: "Always"
+          ports:
+            - name: callback
+              containerPort: 5555
