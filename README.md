@@ -29,7 +29,7 @@ kubectl-ns auth
 helm upgrade dex banzaicloud-stable/dex -f dex/dex-mock-values.yaml --install
 
 # install dex-clientapp
-kubectl apply -k dex-clientapp/v1
+kubectl apply -k dex-clients/dex-clientapp
 ```
 
 Browse to `http://dex-clientapp.11.22.33.44.xip.io/` and log in for client-id `dex-clientapp` and connector ID `mock`.
@@ -56,7 +56,18 @@ ldapsearch -x -b "dc=example,dc=org" -H ldap://localhost:389 -D "cn=admin,dc=exa
 helm upgrade dex banzaicloud-stable/dex -f dex/dex-ldap-values.yaml --install
 
 # install dex-clientapp
-kubectl apply -k dex-clientapp/v1
+kubectl apply -k dex-clients/dex-clientapp
 ```
 
 Browse to `http://dex-clientapp.11.22.33.44.xip.io/` and log in for client-id `dex-clientapp`, additional scopes `groups` and connector ID `ldap`. Authenticate with  user `john` and password `bar` and you get the user attributes and his group memberships (`admins`, `developer`).
+
+## test oid consumer
+
+```bash
+# install dex-client-oidconsumer
+kubectl apply -k dex-clients/dex-client-oidconsumer
+# copy ID-Token from the authenticated user in dex-clientapp (see the step above)
+OID_TOKEN=<...>
+curl -H "Authorization: Bearer $OID_TOKEN" http://dex-client-oidconsumer.11.22.33.44.xip.io
+
+```

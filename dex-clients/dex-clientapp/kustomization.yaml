@@ -1,0 +1,20 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+bases:
+- "../base"
+
+images:
+- name: alitari/dex-client
+  newName: alitari/dex-clientapp
+  newTag: latest
+
+ 
+nameSuffix: "app"
+commonLabels:
+  app.kubernetes.io/name: dex-clientapp
+
+resources:
+  - ingress.yaml
+
+patchesStrategicMerge:
+  - deploypatch.yaml

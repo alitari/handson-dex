@@ -1,4 +1,4 @@
-module example-app
+module dex-clientapp
 
 go 1.14
 

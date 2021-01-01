@@ -1,0 +1,12 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dex-client
+spec:
+  template:
+    spec:
+      containers:
+        - name: dex-client
+          args:
+            - --issuer
+            - http://dex.11.22.33.44.xip.io/dex

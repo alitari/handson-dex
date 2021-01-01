@@ -3,9 +3,14 @@ kind: Kustomization
 bases:
 - "../base"
 
-nameSuffix: "-v1"
+images:
+- name: alitari/dex-client
+  newName: alitari/dex-client-oidconsumer
+  newTag: latest
+
+nameSuffix: "-oidconsumer"
 commonLabels:
-  app.kubernetes.io/name: dex-clientapp-v1
+  app.kubernetes.io/name: dex-client-oidconsumer
 
 resources:
   - ingress.yaml

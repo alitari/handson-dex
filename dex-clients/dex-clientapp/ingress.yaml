@@ -1,0 +1,16 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: dex-client
+  annotations:
+    kubernetes.io/ingress.class: kong
+spec:
+  rules:
+  - host: dex-clientapp.11.22.33.44.xip.io
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: dex-client
+          servicePort: 5555
+
